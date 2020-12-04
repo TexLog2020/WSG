@@ -1,6 +1,5 @@
 package com.example.wsg;
 
-package com.example.loginsignup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
