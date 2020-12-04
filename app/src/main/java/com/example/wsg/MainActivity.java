@@ -1,45 +1,98 @@
-package com.example.firebasedatabasesimos;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
-import java.net.IDN;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-public class MainActivity extends AppCompatActivity {
+    private TextView register;
+    private EditText editTextemail,editTextpassword;
+    private Button signIn;
 
-    final DatabaseReference drEmployees = FirebaseDatabase.getInstance().getReference("Employees");
+    private FirebaseAuth mAuth;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Button deleteButton = (Button) findViewById(R.id.deleteButton);
+        register = (TextView) findViewById(R.id.register);
+        register.setOnClickListener(this);
 
-        String ID = "1";
+        signIn = (Button) findViewById(R.id.signIn);
+        signIn.setOnClickListener(this);
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteEmployee(ID);
-            }
-        });
+        editTextemail = (EditText) findViewById(R.id.email);
+        editTextpassword = (EditText)findViewById(R.id.password);
+
+        progressBar =(ProgressBar) findViewById (R.id.progressBar);
+
+        mAuth = FirebaseAuth.getInstance();
 
     }
 
-    private void deleteEmployee(String id) {
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.register:
+                startActivity(new Intent(this,RegisterUser.class));
+                break;
+            case R.id.signIn:
+                userLogin();
+                break;
+        }
+    }
 
-        drEmployees.child(id);
+    private void userLogin() {
+        String email = editTextemail.getText().toString().trim();
+        String password = editTextpassword.getText().toString().trim();
 
-        drEmployees.removeValue();
+        if(email.isEmpty()){
+            editTextemail.setError("Email Is Required");
+            editTextemail.requestFocus();
+            return;
+        }
 
-        Toast.makeText(this,"The employeer is deleted...",Toast.LENGTH_LONG).show();
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            editTextemail.setError("Please Enter a Valid Email");
+            editTextemail.requestFocus();
+            return;
+
+        }
+
+        if(password.isEmpty()){
+            editTextpassword.setError("Min Password Length is 6 Characters");
+            editTextpassword.requestFocus();
+            return;
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if(task.isSuccessful()) {
+                    startActivity(new Intent(MainActivity.this,ProfileActivity.class));
+                }else{
+                    Toast.makeText(MainActivity.this,"Failed To Login! Failed Check Your Credentials",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+
     }
 }
