@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class InsertUser extends AppCompatActivity implements View.OnClickListener {
 
 
-    private EditText insName, insAge, insEmail, insPassword;
+    private EditText insName, insAge, insEmail, insPassword, insHours;
     private Button InsBtn;
 
     private FirebaseAuth mAuth;
@@ -34,9 +34,10 @@ public class InsertUser extends AppCompatActivity implements View.OnClickListene
 
 
         insName = (EditText) findViewById(R.id.editTextTextPersonName);
-        insAge = (EditText) findViewById(R.id.editTextTextPersonName2);
+        insAge = (EditText) findViewById(R.id.editTextTextAge);
         insEmail = (EditText) findViewById(R.id.editTextTextEmailAddress);
         insPassword = (EditText) findViewById(R.id.editTextTextPassword);
+        insHours= (EditText) findViewById(R.id.editTextTextHours);
 
         InsBtn = (Button) findViewById(R.id.buttonIns);
         InsBtn.setOnClickListener(this);
@@ -51,6 +52,7 @@ public class InsertUser extends AppCompatActivity implements View.OnClickListene
                 String empAge = insAge.getText().toString().trim();
                 String empEmail = insEmail.getText().toString().trim();
                 String empPassword = insPassword.getText().toString().trim();
+                String empHours = insHours.getText().toString().trim();
 
 
 
@@ -58,7 +60,7 @@ public class InsertUser extends AppCompatActivity implements View.OnClickListene
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Employee employee = new Employee(empName, empAge, empEmail);
+                            Employee employee = new Employee(empName, empAge, empEmail,empHours);
 
                             FirebaseDatabase.getInstance().getReference("Employee").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(employee).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
