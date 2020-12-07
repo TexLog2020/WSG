@@ -10,4 +10,5 @@ public class Employee {
         this.empEmail = email;
         this.empHours = hours;
     }
+
 }
