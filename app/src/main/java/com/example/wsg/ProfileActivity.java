@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private Button logout, insuser;
+    private Button logout,delUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +28,18 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-
-        insuser = (Button) findViewById(R.id.buttonUser);
-        insuser.setOnClickListener(new View.OnClickListener() {
+        delUser = (Button) findViewById(R.id.buttonDelete);
+        delUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProfileActivity.this,InsertUser.class));
+                openlistviewEmployees();
             }
         });
 
+    }
 
-
-
+    public void openlistviewEmployees(){
+        Intent intent = new Intent(this,SelectEmplToDelete.class);
+        startActivity(intent);
     }
 }

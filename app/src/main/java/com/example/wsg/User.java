@@ -15,4 +15,9 @@ public class User {
         this.email = email;
 
     }
+
+    public String toString(){
+        return this.fullName + " " + age + " " + email;
+    }
+
 }
