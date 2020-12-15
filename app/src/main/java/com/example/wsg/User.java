@@ -1,6 +1,5 @@
 package com.example.wsg;
 
-
 public class User {
 
     public String fullName,age,email;
