@@ -2,12 +2,31 @@ package com.example.wsg;
 
 public class Employee {
 
-    public String empName,empAge,empEmail,empHours;
+    String kodID;
+    String name;
+    String hours;
 
-    public Employee(String fullName,String age,String email,String hours){
-        this.empName = fullName;
-        this.empAge = age;
-        this.empEmail = email;
-        this.empHours = hours;
+    public Employee(){
+
+    }
+
+    public Employee(String kodID, String name, String hours) {
+        this.kodID = kodID;
+        this.name = name;
+        this.hours = hours;
+    }
+
+    public String getKodID() {
+        return kodID;
+    }
+    public String getName(){
+        return name;
+    }
+    public String getHours(){
+        return hours;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

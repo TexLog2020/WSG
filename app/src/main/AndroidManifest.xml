@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:name=".Module"
         android:theme="@style/Theme.WSG">
-        <activity android:name=".InsertUser"></activity>
+        <activity android:name=".RetriveDataActivity"></activity>
+        <activity android:name=".ForgotPassword" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".RegisterUser" />
         <activity android:name=".MainActivity">
