@@ -43,6 +43,47 @@ public class Schedule extends AppCompatActivity {
 
     @Override
 
+    private void scheduleAndInputToDb(DataSnapshot dataSnapshot, @NonNull List<Employee> workingEmployeeList, boolean isFirst) {
+
+        Map<String, ScheduleHelper> scheduleMap = new HashMap<>();
+        if (isFirst) {
+            initMap(scheduleMap);
+            for (DataSnapshot entry : dataSnapshot.getChildren()) {
+                Employee employeePerson = entry.getValue(Employee.class);
+
+                prepareShifts(scheduleMap, employeePerson);
+                workingEmployeeList.add(employeePerson);
+            }
+            prepareAndInputData(1, scheduleMap.get(MORNING_SHIFT).getShiftNames(), scheduleMap.get(AFTERNOON_SHIFT).getShiftNames(), scheduleMap.get(NIGHT_SHIFT).getShiftNames());
+
+        } else {
+            for (int currentWeekNumber = 2; currentWeekNumber < NUMBER_OF_WEEKS + 1; currentWeekNumber++) {
+                initMap(scheduleMap);
+                Collections.sort(workingEmployeeList, new Comparator() {
+                    @Override
+                    public int compare(Object o1, Object o2) {
+                        Employee p1 = (Employee) o1;
+                        Employee p2 = (Employee) o2;
+                        return Integer.compare(p1.getHours(), p2.getHours());
+                    }
+                });
+                Iterator<Employee> employeeIterator = workingEmployeeList.iterator();
+                while (employeeIterator.hasNext() && !allShiftsAreFull(scheduleMap)) {
+                    Employee currentEmployee = employeeIterator.next();
+                    prepareShifts(scheduleMap, currentEmployee);
+                }
+                prepareAndInputData(currentWeekNumber, scheduleMap.get(MORNING_SHIFT).getShiftNames(), scheduleMap.get(AFTERNOON_SHIFT).getShiftNames(), scheduleMap.get(NIGHT_SHIFT).getShiftNames());
+            }
+        }
+    }
+
+    private void initMap(Map<String, ScheduleHelper> scheduleMap) {
+        scheduleMap.put(MORNING_SHIFT, new ScheduleHelper("", 0));
+        scheduleMap.put(AFTERNOON_SHIFT, new ScheduleHelper("", 0));
+        scheduleMap.put(NIGHT_SHIFT, new ScheduleHelper("", 0));
+    }
+
+
     private void prepareAndInputData(int currentWeekNumber, String morningShiftNames, String afternoonShiftNames, String nightShiftNames) {
         morningShiftNames = StringUtils.substring(morningShiftNames, 1);
         afternoonShiftNames = StringUtils.substring(afternoonShiftNames, 1);
