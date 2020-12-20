@@ -43,6 +43,32 @@ public class Schedule extends AppCompatActivity {
 
     @Override
 
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_schedule);
+
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+
+        Query query = db.getReference(TABLE_EMPLOYEES);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Employee> workingEmployeeList = new ArrayList<>();
+                if (dataSnapshot.exists()) {
+                    scheduleAndInputToDb(dataSnapshot, workingEmployeeList, true);
+                }
+                scheduleAndInputToDb(null, workingEmployeeList, false);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Required from interface implementation.
+            }
+        });
+    }
+
+
+
     private void scheduleAndInputToDb(DataSnapshot dataSnapshot, @NonNull List<Employee> workingEmployeeList, boolean isFirst) {
 
         Map<String, ScheduleHelper> scheduleMap = new HashMap<>();
@@ -83,6 +109,25 @@ public class Schedule extends AppCompatActivity {
         scheduleMap.put(NIGHT_SHIFT, new ScheduleHelper("", 0));
     }
 
+    private boolean allShiftsAreFull(Map<String, ScheduleHelper> scheduleMap) {
+        return scheduleMap.get(MORNING_SHIFT).isFull() && scheduleMap.get(AFTERNOON_SHIFT).isFull() && scheduleMap.get(NIGHT_SHIFT).isFull();
+    }
+
+    private void prepareShifts(Map<String, ScheduleHelper> scheduleMap, Employee employee) {
+        if (scheduleMap.get(MORNING_SHIFT).getShiftCounter() < PEOPLE_ON_MORNING_SHIFT) {
+            scheduleMap.get(MORNING_SHIFT).setShiftNames(StringUtils.join(scheduleMap.get(MORNING_SHIFT).getShiftNames(), ",", employee.getName()));
+            employee.setHours(employee.getHours() + 8);
+            scheduleMap.get(MORNING_SHIFT).shiftCounterIncrease();
+        } else if (scheduleMap.get(AFTERNOON_SHIFT).getShiftCounter() < PEOPLE_ON_AFTERNOON_SHIFT) {
+            scheduleMap.get(AFTERNOON_SHIFT).setShiftNames(StringUtils.join(scheduleMap.get(AFTERNOON_SHIFT).getShiftNames(), ",", employee.getName()));
+            employee.setHours(employee.getHours() + 8);
+            scheduleMap.get(AFTERNOON_SHIFT).shiftCounterIncrease();
+        } else if (scheduleMap.get(NIGHT_SHIFT).getShiftCounter() < PEOPLE_ON_NIGHT_SHIFT) {
+            scheduleMap.get(NIGHT_SHIFT).setShiftNames(StringUtils.join(scheduleMap.get(NIGHT_SHIFT).getShiftNames(), ",", employee.getName()));
+            employee.setHours(employee.getHours() + 8);
+            scheduleMap.get(NIGHT_SHIFT).shiftCounterIncrease();
+        }
+    }
 
     private void prepareAndInputData(int currentWeekNumber, String morningShiftNames, String afternoonShiftNames, String nightShiftNames) {
         morningShiftNames = StringUtils.substring(morningShiftNames, 1);
