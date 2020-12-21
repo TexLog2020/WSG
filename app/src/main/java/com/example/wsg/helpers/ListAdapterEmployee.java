@@ -1,4 +1,4 @@
-package com.example.wsg;
+package com.example.wsg.helpers;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -10,14 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.wsg.Employee;
+import com.example.wsg.R;
+
 import java.util.List;
 
-public class ListAdapter extends ArrayAdapter {
+public class ListAdapterEmployee extends ArrayAdapter {
 
     private Activity mContext;
-    List<Employee> employeeList;
+    private List<Employee> employeeList;
 
-    public ListAdapter(Activity mContext,List<Employee> employeeList){
+    public ListAdapterEmployee(Activity mContext, List<Employee> employeeList){
         super(mContext,R.layout.list_item,employeeList);
         this.mContext = mContext;
         this.employeeList= employeeList;
@@ -36,12 +39,12 @@ public class ListAdapter extends ArrayAdapter {
 
         Employee employee = employeeList.get(position);
 
-        tvEmployee.setText(employee.getKodID());
+        tvEmployee.setText(String.valueOf(employee.getKodID()));
         tvFullName.setText(employee.getName());
-        tvhoursEmployee.setText(employee.getHours());
+        tvhoursEmployee.setText(String.valueOf(employee.getHours()));
 
 
         return listItemView;
-
     }
 }
+
