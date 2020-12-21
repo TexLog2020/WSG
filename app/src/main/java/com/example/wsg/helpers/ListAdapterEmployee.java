@@ -47,4 +47,3 @@ public class ListAdapterEmployee extends ArrayAdapter {
         return listItemView;
     }
 }
-
