@@ -12,7 +12,6 @@
         <activity android:name=".ViewSchedule"></activity>
         <activity
             android:name=".RetrieveDataActivity"
-            android:label="@string/title_activity_retrieve_data"
             android:theme="@style/Theme.WSG.NoActionBar" />
         <activity android:name=".Schedule" />
         <activity android:name=".ForgotPassword" />
