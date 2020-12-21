@@ -75,6 +75,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btnInsertData"
         app:layout_constraintVertical_bias="1.0" />
 
+
     <Button
         android:id="@+id/btnInsertData"
         android:layout_width="150dp"
@@ -85,7 +86,7 @@
         app:backgroundTint="#0B0606"
         app:layout_constraintBottom_toTopOf="@+id/btnRetreiveData"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintHorizontal_bias="0.061"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -97,8 +98,37 @@
         app:backgroundTint="#171010"
         app:layout_constraintBottom_toBottomOf="@+id/signOut"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.029"
+        app:layout_constraintHorizontal_bias="0.059"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnInsertData" />
+
+    <Button
+        android:id="@+id/btnSchedule"
+        android:layout_width="150dp"
+        android:layout_height="61dp"
+        android:layout_marginBottom="80dp"
+        android:text="Schedule"
+        app:backgroundTint="#0B0606"
+        app:layout_constraintBottom_toTopOf="@+id/signOut"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.938"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btnViewSchedule"
+        android:layout_width="150dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginBottom="1dp"
+        android:text="View Schedule"
+        app:backgroundTint="#0B0606"
+        app:layout_constraintBottom_toTopOf="@+id/btnSchedule"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.896"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

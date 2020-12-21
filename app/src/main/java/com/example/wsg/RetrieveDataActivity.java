@@ -10,9 +10,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wsg.helpers.ListAdapterEmployee;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -24,43 +24,43 @@ import com.google.firebase.database.ValueEventListener;
 import androidx.appcompat.app.AlertDialog;
 
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.List;
 
-public class RetriveDataActivity extends AppCompatActivity {
+public class RetrieveDataActivity extends AppCompatActivity {
 
-    ListView myListview;
-    List<Employee> employeeList;
+    private  static final String TABLE_EMPLOYEES = "Employees";
+    private ListView myListview;
+    private List<Employee> employeeList;
 
     DatabaseReference employeeDbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_retrive_data);
+        setContentView(R.layout.activity_retrieve_data);
 
         myListview = findViewById(R.id.myListView);
         employeeList = new ArrayList<>();
 
-        employeeDbRef = FirebaseDatabase.getInstance().getReference("Employees");
+        employeeDbRef = FirebaseDatabase.getInstance().getReference(TABLE_EMPLOYEES);
 
         employeeDbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 employeeList.clear();
 
-                for(DataSnapshot employeeDatasnap : dataSnapshot.getChildren()){
+                for (DataSnapshot employeeDatasnap : dataSnapshot.getChildren()) {
                     Employee employee = employeeDatasnap.getValue(Employee.class);
                     employeeList.add(employee);
                 }
 
-                ListAdapter adapter = new ListAdapter(RetriveDataActivity.this,employeeList);
+                ListAdapterEmployee adapter = new ListAdapterEmployee(RetrieveDataActivity.this, employeeList);
                 myListview.setAdapter(adapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                // Required for interface implementation
             }
         });
 
@@ -68,13 +68,13 @@ public class RetriveDataActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Employee employee = employeeList.get(position);
-                showUpdateDialog(employee.getKodID(),employee.getName());
+                showUpdateDialog(employee.getKodID(), employee.getName());
 
                 return false;
             }
         });
     }
-    private void showUpdateDialog(final String kodID,String name){
+    private void showUpdateDialog(final int kodID,String name){
 
         final AlertDialog.Builder mDialog = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -96,14 +96,14 @@ public class RetriveDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String newkodID = tvUpdateEmployee.getText().toString();
-                String newhours = tvUpdateFullName.getText().toString();
+                int newkodID = Integer.parseInt(tvUpdateEmployee.getText().toString());
+                int newhours = Integer.parseInt(tvUpdateFullName.getText().toString());
                 String newName = tvUpdatehoursEmployee.getText().toString();
 
 
-                updateData(newkodID,newhours,newName);
+                updateData(newkodID,newName,newhours);
 
-                Toast.makeText(RetriveDataActivity.this, "Record Updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RetrieveDataActivity.this, "Record Updated", Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
 
             }
@@ -122,10 +122,10 @@ public class RetriveDataActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    private void deleteRecord(String kodID) {
-        DatabaseReference DbRef = FirebaseDatabase.getInstance().getReference("Employees").child(kodID);
+    private void deleteRecord(int kodID) {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference(TABLE_EMPLOYEES).child(String.valueOf(kodID));
 
-        Task<Void> mTask = DbRef.removeValue();
+        Task<Void> mTask = dbRef.removeValue();
         mTask.addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -139,11 +139,11 @@ public class RetriveDataActivity extends AppCompatActivity {
         });
     }
 
-    private void updateData(String kodID, String name, String hours){
+    private void updateData(int kodID, String name, int hours){
 
-        DatabaseReference DbRef = FirebaseDatabase.getInstance().getReference("Employees").child(kodID);
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference(TABLE_EMPLOYEES).child(String.valueOf(kodID));
         Employee employee = new Employee(kodID, name, hours);
-        DbRef.setValue(employee);
+        dbRef.setValue(employee);
 
     }
 }
