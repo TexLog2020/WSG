@@ -38,8 +38,8 @@ public class ListAdapterSchedule extends ArrayAdapter {
         TextView morningShift = listItemView.findViewById(R.id.morningShift);
         TextView afternoonShift = listItemView.findViewById(R.id.afternoonShift);
         TextView nightShift = listItemView.findViewById(R.id.nightShift);
-
-        week.setText("Week"+position);
+        int pos=position+1;
+        week.setText("Day "+pos);
         morningShift.setText(scheduleList.get(position).getMorningShift());
         afternoonShift.setText(scheduleList.get(position).getAfternoonShift());
         nightShift.setText(scheduleList.get(position).getNightShift());
