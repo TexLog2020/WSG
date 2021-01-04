@@ -1,4 +1,4 @@
-package com.example.wsg;
+package com.example.wsg.helpers;
 
 public class DaySchedule {
 
