@@ -1,24 +1,34 @@
 package com.example.wsg.helpers;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class ScheduleReader {
 
-    private HashMap <String,String> shift1;
-    private HashMap <String,String> shift2;
-    private HashMap <String,String> shift3;
+    private static final String EMPLOYEE_NAMES = "employeeNames";
+    private String shift1;
+    private String shift2;
+    private String shift3;
 
-    private WeeklyShifts workingEmployees;
+    private List<DailyShifts> workingEmployees = new ArrayList<>();
 
-    public ScheduleReader(HashMap <String,Object> shifts){
-        this.shift1 = (HashMap <String,String>)shifts.get("shift1");
-        this.shift2 = (HashMap <String,String>) shifts.get("shift2");
-        this.shift3 = (HashMap <String,String>) shifts.get("shift3");
+    public ScheduleReader(Map <String, Map<String,Map<String,String>>> shifts){
 
-        workingEmployees = new WeeklyShifts(shift1.get("employeeNames"),shift2.get("employeeNames"),shift3.get("employeeNames"));
+        for(int i=0; i< shifts.size(); i++) {
+            this.shift1 = shifts.get(DaysOfTheWeek.getDay(i)).get("shift1").get(EMPLOYEE_NAMES);
+            this.shift2 = shifts.get(DaysOfTheWeek.getDay(i)).get("shift2").get(EMPLOYEE_NAMES);
+            this.shift3 = shifts.get(DaysOfTheWeek.getDay(i)).get("shift3").get(EMPLOYEE_NAMES);
+            workingEmployees.add(new DailyShifts(DaysOfTheWeek.getDay(i),shift1,shift2,shift3));
+        }
     }
 
-    public WeeklyShifts getWorkingEmployees(){
+    public List<DailyShifts> getWorkingEmployees() {
         return workingEmployees;
     }
+
+    public void setWorkingEmployees(List<DailyShifts> workingEmployees) {
+        this.workingEmployees = workingEmployees;
+    }
 }
+
