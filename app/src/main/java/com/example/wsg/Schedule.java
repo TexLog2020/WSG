@@ -67,8 +67,6 @@ public class Schedule extends AppCompatActivity {
         });
     }
 
-
-
     private void scheduleAndInputToDb(DataSnapshot dataSnapshot, @NonNull List<Employee> workingEmployeeList, boolean isFirst) {
 
         Map<String, ScheduleHelper> scheduleMap = new HashMap<>();

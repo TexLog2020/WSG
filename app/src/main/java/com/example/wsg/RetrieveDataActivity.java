@@ -139,7 +139,7 @@ public class RetrieveDataActivity extends AppCompatActivity {
         });
     }
 
-    private void updateData(int kodID, String name, int hours){
+    private void updateData(int kodID,String name,int hours){
 
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference(TABLE_EMPLOYEES).child(String.valueOf(kodID));
         Employee employee = new Employee(kodID, name, hours);

@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.wsg.Employee;
 import com.example.wsg.R;
 
 import java.util.List;

@@ -1,4 +1,5 @@
-package com.example.wsg;
+package com.example.wsg.helpers;
+
 
 
 public class User {
@@ -15,9 +16,4 @@ public class User {
         this.email = email;
 
     }
-
-    public String toString(){
-        return this.fullName + " " + age + " " + email;
-    }
-
 }
