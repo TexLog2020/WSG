@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:layout_marginTop="10dp"
-        android:hint="New ID"  />
+        android:hint="NewID"  />
 
     <EditText
         android:id="@+id/tvUpdatehoursEmployee"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:layout_marginTop="10dp"
-        android:hint="New hour"  />
+        android:hint="NewName"  />
 
     <EditText
         android:id="@+id/tvUpdateFullName"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="New name" />
+        android:hint="NewHours" />
 
     <Button
         android:id="@+id/btnUpdate"

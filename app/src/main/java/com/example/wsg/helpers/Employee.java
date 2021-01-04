@@ -1,4 +1,5 @@
-package com.example.wsg;
+package com.example.wsg.helpers;
+
 
 public class Employee {
 
@@ -15,6 +16,12 @@ public class Employee {
         this.kodID = kodID;
         this.name = name;
         this.hours = hours;
+    }
+
+    public Employee(int kodID, String name) {
+        this.kodID = kodID;
+        this.name = name;
+        this.hours = 0;
     }
 
     public int getKodID() {
@@ -36,4 +43,3 @@ public class Employee {
     }
 
 }
-

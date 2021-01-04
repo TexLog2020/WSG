@@ -1,0 +1,57 @@
+{
+  "Friday": {
+    "shift1": {
+      "employeeNames": "John Nickou,Ballentina Sarakou"
+    },
+    "shift2": {
+      "employeeNames": "Alkis Saris,Zhshs Taviras,Iason Makaris"
+    },
+    "shift3": {
+      "employeeNames": "Leonidas Kexas"
+    }
+  },
+  "Monday": {
+    "shift1": {
+      "employeeNames": "John Nickou,Ballentina Sarakou"
+    },
+    "shift2": {
+      "employeeNames": "Alkis Saris,Zhshs Taviras,Nick Palsos"
+    },
+    "shift3": {
+      "employeeNames": "Kwstas Varas"
+    }
+  },
+  "Thursday": {
+    "shift1": {
+      "employeeNames": "John Nickou,Ballentina Sarakou"
+    },
+    "shift2": {
+      "employeeNames": "Alkis Saris,Zhshs Taviras,Nick Palsos"
+    },
+    "shift3": {
+      "employeeNames": "Kwstas Varas"
+    }
+  },
+  "Tuesday": {
+    "shift1": {
+      "employeeNames": "John Nickou,Ballentina Sarakou"
+    },
+    "shift2": {
+      "employeeNames": "Alkis Saris,Zhshs Taviras,Nick Palsos"
+    },
+    "shift3": {
+      "employeeNames": "George Iakovou"
+    }
+  },
+  "Wednesday": {
+    "shift1": {
+      "employeeNames": "John Nickou,Ballentina Sarakou"
+    },
+    "shift2": {
+      "employeeNames": "Alkis Saris,Zhshs Taviras,Leonidas Kexas"
+    },
+    "shift3": {
+      "employeeNames": "Panagiwtis Iwannou"
+    }
+  }
+}
