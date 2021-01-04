@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.wsg.helpers.Employee;
 import com.example.wsg.helpers.ListAdapterEmployee;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -139,7 +140,7 @@ public class RetrieveDataActivity extends AppCompatActivity {
         });
     }
 
-    private void updateData(int kodID,String name,int hours){
+    private void updateData(int kodID, String name, int hours){
 
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference(TABLE_EMPLOYEES).child(String.valueOf(kodID));
         Employee employee = new Employee(kodID, name, hours);

@@ -14,13 +14,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wsg.helpers.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import java.util.regex.Pattern;
 
+@SuppressWarnings("java:S110")
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener{
 
     private TextView banner,register;
@@ -58,6 +59,8 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.register:
                 register();
+                break;
+            default:
                 break;
         }
     }
