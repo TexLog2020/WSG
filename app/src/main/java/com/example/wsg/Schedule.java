@@ -32,7 +32,7 @@ import java.util.Map;
 @SuppressWarnings("java:S110")
 public class Schedule extends AppCompatActivity {
 
-    public static final int NUMBER_OF_WEEKS = 2;
+    public static final int NUMBER_OF_WEEKS = 4;
     private static final int PEOPLE_ON_MORNING_SHIFT = 2;
     private static final int PEOPLE_ON_AFTERNOON_SHIFT = 3;
     private static final int PEOPLE_ON_NIGHT_SHIFT = 1;
