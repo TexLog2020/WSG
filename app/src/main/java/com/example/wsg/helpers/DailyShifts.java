@@ -1,15 +1,26 @@
 package com.example.wsg.helpers;
 
-public class WeeklyShifts {
+public class DailyShifts {
 
+    private String day;
     private String morningShift;
     private String afternoonShift;
     private String nightShift;
 
-    public WeeklyShifts(String morningShift, String afternoonShift, String nightShift) {
+    public DailyShifts(String day, String morningShift, String afternoonShift, String nightShift) {
+        this.day = day;
         this.morningShift = morningShift;
         this.afternoonShift = afternoonShift;
         this.nightShift = nightShift;
+    }
+
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 
     public String getMorningShift() {
@@ -36,3 +47,4 @@ public class WeeklyShifts {
         this.nightShift = nightShift;
     }
 }
+
