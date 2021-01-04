@@ -34,11 +34,20 @@ public class ScheduleReaderTest {
         sr = new ScheduleReader(map);
     }
 
+    @Test
+    public void testConstructor() {
+        Assert.assertNotNull(sr);
+    }
 
+    @Test
+    public void has5Days() {
+        assertEquals(5, sr.getWorkingEmployees().size());
+    }
 
-
-
-
+    @Test
+    public void MondayMorningEmployees() {
+        assertEquals(MONDAY_MORNING_EMPLOYEES, sr.getWorkingEmployees().get(0).getMorningShift());
+    }
 
 
     @After
