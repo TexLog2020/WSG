@@ -35,7 +35,7 @@
         android:layout_width="387dp"
         android:layout_height="78dp"
         android:ems="10"
-        android:hint="FullName"
+        android:hint="Full Name"
         app:layout_constraintBottom_toTopOf="@+id/signOut"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
@@ -48,7 +48,7 @@
         android:layout_width="394dp"
         android:layout_height="85dp"
         android:ems="10"
-        android:hint="HoursToWork"
+        android:hint="Weekly Worked Hours"
         app:layout_constraintBottom_toTopOf="@+id/signOut"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
@@ -61,7 +61,7 @@
         android:layout_width="394dp"
         android:layout_height="85dp"
         android:ems="10"
-        android:hint="Weeks Off"
+        android:hint="Number of desired week-off"
         app:layout_constraintBottom_toTopOf="@+id/signOut"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
@@ -69,10 +69,11 @@
         app:layout_constraintTop_toBottomOf="@+id/fullName"
         app:layout_constraintVertical_bias="0.379" />
 
+
     <Button
         android:id="@+id/signOut"
-        android:layout_width="139dp"
-        android:layout_height="60dp"
+        android:layout_width="152dp"
+        android:layout_height="67dp"
         android:layout_marginBottom="13dp"
         android:backgroundTint="#000000"
         android:text="logout"
@@ -81,13 +82,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.837"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnInsertData"
-        app:layout_constraintVertical_bias="1.0" />
-
+        app:layout_constraintVertical_bias="0.968" />
 
     <Button
         android:id="@+id/btnInsertData"
@@ -105,16 +103,30 @@
 
     <Button
         android:id="@+id/btnRetreiveData"
-        android:layout_width="143dp"
+        android:layout_width="147dp"
         android:layout_height="79dp"
         android:text="ShowData"
         app:backgroundTint="#171010"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.085"
+        app:layout_constraintEnd_toStartOf="@+id/btnSchedule"
+        app:layout_constraintHorizontal_bias="0.263"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnInsertData"
-        app:layout_constraintVertical_bias="0.443" />
+        app:layout_constraintVertical_bias="0.288" />
+
+    <Button
+        android:id="@+id/btnViewSchedule"
+        android:layout_width="150dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="444dp"
+        android:layout_marginBottom="11dp"
+        android:text="View Schedule"
+        app:backgroundTint="#0B0606"
+        app:layout_constraintBottom_toTopOf="@+id/btnSchedule"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.839"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/btnSchedule"
@@ -125,24 +137,10 @@
         app:backgroundTint="#0B0606"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintHorizontal_bias="0.839"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnViewSchedule"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/btnViewSchedule"
-        android:layout_width="150dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="444dp"
-        android:text="View Schedule"
-        app:backgroundTint="#0B0606"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.85"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.016" />
+        app:layout_constraintVertical_bias="0.523" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

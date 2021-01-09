@@ -80,7 +80,7 @@ public class Schedule extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        // Required from interface implementation.
+
                     }
                 });
 
@@ -97,7 +97,7 @@ public class Schedule extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        // Required from interface implementation.
+
                     }
                 });
 
@@ -106,10 +106,10 @@ public class Schedule extends AppCompatActivity {
     }
 
     /**
-     * Eisagei olous tous upallilous ths basis se lista.
+     * Εισάγει όλους του υπαλλήλους της βάσης σε λίστα
      *
-     * @param dataSnapshot : Snapshot from the data in the Database.
-     * @param workingEmployeeList: List to be filled with all available employees.
+     * @param dataSnapshot : Snapshot από τα δεδομένα της βάσης
+     * @param workingEmployeeList: Λίστα που γεμίζει με τους διαθέσιμους υπαλλήλους
      */
     private void getEmployeesFromDatabase(DataSnapshot dataSnapshot, @NonNull List<Employee> workingEmployeeList) {
         for (DataSnapshot entry : dataSnapshot.getChildren()) {
@@ -119,9 +119,11 @@ public class Schedule extends AppCompatActivity {
     }
 
     /**
-     * Sorts a list of employees based on hours worked. Creates shifts, prioritizing the employees who worked the least. Calls function to input data into the DB and update employee hours.
+     * Ταξινομεί τη λίστα των υπαλλήλων με βάση τις ώρες που έχουν δουλέψει. Δημιουργεί βάρδιες,
+     * βάζει σε προτεραιότητα του υπαλλήλους που έχουν εργαστεί λιγότερο.
+     * Καλεί την κλαση για την εισαγωγή δεδομένων στη βάση και ενημερώνει τις ώρες των υπαλλήλων.
      *
-     * @param workingEmployeeList: List filled with all available employees.
+     * @param workingEmployeeList: Λίστα που γεμίζει με τους διαθέσιμους υπαλλήλους
      */
     private void scheduleAndInputToDb(@NonNull List<Employee> workingEmployeeList) {
         Map<String, ScheduleHelper> scheduleMap = new HashMap<>();
@@ -153,9 +155,10 @@ public class Schedule extends AppCompatActivity {
     }
 
     /**
-     * Updates table TABLE_EMPLOYEES with the overall hours an employee is supposed to work on this schedule iteration.
+     * Ενημερώνει το TABLE_EMPLOYEES με τις συνολικές ώρες που ένας υπάλληλος υποτίθεται πως
+     * πρέπει να δουλέψει στην επανάληψη του προγράμματος εργασίας.
      *
-     * @param workingEmployeeList: List filled with all available employees.
+     * @param workingEmployeeList: Λίστα που γεμίζει με τους διαθέσιμους υπαλλήλους
      */
     private void updateEmployeeHours(@NonNull List<Employee> workingEmployeeList) {
 
@@ -175,9 +178,9 @@ public class Schedule extends AppCompatActivity {
     }
 
     /**
-     * Inits the map which holds the shifts
+     * Αρχικοποιεί το Hashmap που περιέχει τις βάρδιες
      *
-     * @param scheduleMap: The map to be initialized.
+     * @param scheduleMap: hashmap που περιέχει τις βάρδιες.
      */
     private void initMap(Map<String, ScheduleHelper> scheduleMap) {
         scheduleMap.put(MORNING_SHIFT, new ScheduleHelper("", 0));
@@ -186,19 +189,19 @@ public class Schedule extends AppCompatActivity {
     }
 
     /**
-     * Check for non-full shift.
+     * Ελέγχει για κενές βάρδιες.
      *
-     * @param scheduleMap: Map that holds all shifts.
-     * @return true if all shifts are full, false if there is at least one shift that is not full.
+     * @param scheduleMap: hashmap που περιέχει τις βάρδιες.
+     * @return true αν όλες οι βάρδιες είναι γεμάτες, false αν έστω και μια βάρδια δεν είναι γεμάτη.
      */
     private boolean allShiftsAreFull(Map<String, ScheduleHelper> scheduleMap) {
         return scheduleMap.get(MORNING_SHIFT).isFull() && scheduleMap.get(AFTERNOON_SHIFT).isFull() && scheduleMap.get(NIGHT_SHIFT).isFull();
     }
 
     /**
-     * Puts employee on a shift.
-     * @param scheduleMap: Map that holds all shifts.
-     * @param employee: Employee about to get put into a shift.
+     * Τοποθετεί έναν εργαζόμενο σε μια βάρδια
+     * @param scheduleMap: hashmap που περιέχει τις βάρδιες.
+     * @param employee: Εργαζόμενος που θα τεθεί στη βάρδια.
      */
     private void prepareShifts(Map<String, ScheduleHelper> scheduleMap, Employee employee) {
         if (scheduleMap.get(MORNING_SHIFT).getShiftCounter() < PEOPLE_ON_MORNING_SHIFT) {
@@ -217,13 +220,13 @@ public class Schedule extends AppCompatActivity {
     }
 
     /**
-     * Data format and preparation for insert into database.
+     * Προετοιμασία δεδομένων για εισαγωγή στη βάση.
      *
-     * @param currentWeekNumber: The week the iteration is in.
-     * @param dayNumber: The day in a numeric format.
-     * @param morningShiftNames: A string containing all names of employees in the morning shift.
-     * @param afternoonShiftNames: A string containing all names of employees in the afternoon shift.
-     * @param nightShiftNames: A string containing all names of employees in the night shift.
+     * @param currentWeekNumber: Η τρέχουσα βάρδια που βρίσκεται στην επανάληψη της γεννήτριας
+     * @param dayNumber: Ο αριθμός που δηλώνει μια συγκρεκριμένη ημέρα.
+     * @param morningShiftNames: Ένα αλφαριθμιτικό που περιέχει τα ονόματα των υπαλλήλων που βρίσκονται στην πρωινή βάρδια.
+     * @param afternoonShiftNames: Ένα αλφαριθμιτικό που περιέχει τα ονόματα των υπαλλήλων που βρίσκονται στην απογευματινή βάρδια.
+     * @param nightShiftNames: Ένα αλφαριθμιτικό που περιέχει τα ονόματα των υπαλλήλων που βρίσκονται στη βραδινή βάρδια.
      */
     private void prepareAndInputData(int currentWeekNumber, int dayNumber, String morningShiftNames, String afternoonShiftNames, String nightShiftNames) {
         morningShiftNames = StringUtils.substring(morningShiftNames, 2);
@@ -234,13 +237,13 @@ public class Schedule extends AppCompatActivity {
     }
 
     /**
-     * Inputs data into the DB.
+     * Εισάγει δεδομένα στη βάση.
      *
-     * @param currentWeekNumber: The week the iteration is in.
-     * @param currentDayAsNumber: The day in a numeric format.
-     * @param morningShiftNames: A string containing all names of employees in the morning shift.
-     * @param afternoonShiftNames: A string containing all names of employees in the afternoon shift.
-     * @param nightShiftNames: A string containing all names of employees in the night shift.
+     * @param currentWeekNumber: Η τρέχουσα βάρδια που βρίσκεται στην επανάληψη της γεννήτριας
+     * @param currentDayAsNumber: Ο αριθμός που δηλώνει τη τρέχουσα ημέρα.
+     * @param morningShiftNames: Ένα αλφαριθμιτικό που περιέχει τα ονόματα των υπαλλήλων που βρίσκονται στην πρωινή βάρδια.
+     * @param afternoonShiftNames: Ένα αλφαριθμιτικό που περιέχει τα ονόματα των υπαλλήλων που βρίσκονται στην απογευματινή βάρδια.
+     * @param nightShiftNames: Ένα αλφαριθμιτικό που περιέχει τα ονόματα των υπαλλήλων που βρίσκονται στη βραδινή βάρδια.
      */
     private void inputWeekDataToDb(int currentWeekNumber, int currentDayAsNumber, String morningShiftNames, String afternoonShiftNames, String nightShiftNames) {
         DaySchedule currentDayMorning = new DaySchedule(morningShiftNames);

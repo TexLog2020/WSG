@@ -34,7 +34,8 @@ public class ViewSchedule extends AppCompatActivity {
     private LinearLayout scheduleList;
 
     /**
-     * Gets Data from the DB and visualizes the schedule in an easy to read list.
+     * Λαμβάνει δεδομένα από την βάση και τα απεικονίζει το πρόγραμμα εργασίας
+     * σε μια λίστα εύκολη ανάγνωσης
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,15 +104,14 @@ public class ViewSchedule extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Required for interface implementation
             }
         });
     }
 
     /**
-     * Standard settings for the text views.
-     * @param textViewToBeAdded: Text view to be added in the screen.
-     * @param color: Color of text view.
+     * Προκαθορισμένες ρυθμίσεις για την εμφάνιση κειμένου
+     * @param textViewToBeAdded: Κείμενο που είναι να προστεθεί στην οθόνη
+     * @param color: Το χρώμα του κειμένου
      */
     private void textViewConfigs(TextView textViewToBeAdded, int color) {
         textViewToBeAdded.setTextSize(24);
