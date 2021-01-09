@@ -10,6 +10,7 @@
         android:id="@+id/scheduleButton"
         android:layout_width="177dp"
         android:layout_height="46dp"
+        android:backgroundTint="#000000"
         android:text="Schedule"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
