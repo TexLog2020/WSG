@@ -14,6 +14,12 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+/**
+ * Η ForgotPassword ανακτά το ξεχασμένο κωδικό ενός χρήστη και στέλνει e-mail
+ * στη διεύθυνση που έχει δώσει ο χρήστης για να δώσει νέο κωδικό.
+ * Επίσης,εμφανίζει ανάλογα μηνύματα επιτυχίας ή αποτυχίας της διαδικασίας ανάκτησης.
+ * Εκτελεί έλεγχο εγκυρότητας για τα στοιχεία που προσφέρει ο χρήστης.
+ */
 
 public class ForgotPassword extends AppCompatActivity {
 

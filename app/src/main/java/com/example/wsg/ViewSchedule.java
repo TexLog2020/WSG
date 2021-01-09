@@ -33,6 +33,10 @@ public class ViewSchedule extends AppCompatActivity {
     private static final int MAX_WEEKS = Schedule.NUMBER_OF_WEEKS + 1;
     private LinearLayout scheduleList;
 
+    /**
+     * Λαμβάνει δεδομένα από την βάση και τα απεικονίζει το πρόγραμμα εργασίας
+     * σε μια λίστα εύκολη ανάγνωσης
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,11 +104,15 @@ public class ViewSchedule extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Required for interface implementation
             }
         });
     }
 
+    /**
+     * Προκαθορισμένες ρυθμίσεις για την εμφάνιση κειμένου
+     * @param textViewToBeAdded: Κείμενο που είναι να προστεθεί στην οθόνη
+     * @param color: Το χρώμα του κειμένου
+     */
     private void textViewConfigs(TextView textViewToBeAdded, int color) {
         textViewToBeAdded.setTextSize(24);
         textViewToBeAdded.setTextColor(color);
@@ -118,3 +126,4 @@ public class ViewSchedule extends AppCompatActivity {
         this.finish();
     }
 }
+

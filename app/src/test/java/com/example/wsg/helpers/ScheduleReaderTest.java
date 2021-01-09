@@ -15,20 +15,22 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-
+/**
+ * Testing για την κλάση  {@link ScheduleReader}
+ */
 public class ScheduleReaderTest {
 
     private static final String MONDAY_MORNING_EMPLOYEES = "John Nickou,Ballentina Sarakou";
     private static Map<String, Map<String, Map<String, String>>> map;
 
     private ScheduleReader sr;
-
+   //Εκτελείται μια φορά
     @BeforeClass
     public static void init() throws FileNotFoundException {
         BufferedReader br = new BufferedReader(new FileReader("src/test/resources/wsg/week1.json"));
         map = new Gson().fromJson(br, Map.class);
     }
-
+    //Εκτελείται πριν από κάθε test μεμονωμένα
     @Before
     public void setUp() {
         sr = new ScheduleReader(map);
@@ -49,7 +51,7 @@ public class ScheduleReaderTest {
         assertEquals(MONDAY_MORNING_EMPLOYEES, sr.getWorkingEmployees().get(0).getMorningShift());
     }
 
-
+    //Εκτελείται μετά από κάθε ολοκλήρωση ενός test
     @After
     public void tearDown() {
         sr = null;

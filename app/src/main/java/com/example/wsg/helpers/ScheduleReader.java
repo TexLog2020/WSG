@@ -12,6 +12,13 @@ public class ScheduleReader {
     private String shift3;
 
     private List<DailyShifts> workingEmployees = new ArrayList<>();
+    /**
+     *  Η κλάση {@link ScheduleReader} αποθηκεύει σε μια λίστα τους υπαλλήλους
+     *  που εργάζονται σε κάθε βάρδια.
+     *
+     * @param shifts Είναι ένα hashmap που έχει μέσα τα όνοματα των
+     *               υπαλλήλων από όλες τις βάρδιες όλων των ημερών.
+     */
 
     public ScheduleReader(Map <String, Map<String,Map<String,String>>> shifts){
 

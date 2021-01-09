@@ -15,6 +15,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Είναι η φόρμα που διαχειρίζεται την εμφάνιση των βασικών
+ * κουμπιών λειτουργίας όπως την αποσύνδεση,την ανάκτηση δεδομένων υπαλλήλων από τη βάση,
+ * τη γεννήτρια προγράμματος κτλ.
+ *
+ * Επίσης,ολοκληρώνει την εισαγωγή δεδομένων στη βάση.
+ */
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -26,6 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
     private EditText kodEmployee;
     private EditText fullName;
     private EditText hoursEmployee;
+    private EditText weeksOffEmployee;
 
     private DatabaseReference employeeDbRef;
 
@@ -37,6 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
         kodEmployee  = (EditText) findViewById(R.id.kodEmployee);
         fullName  = (EditText) findViewById(R.id.fullName);
         hoursEmployee = (EditText) findViewById(R.id.hoursEmployee);
+        weeksOffEmployee = (EditText) findViewById(R.id.weeksOff);
         btnInsertData = (Button) findViewById(R.id.btnInsertData);
         btnRetreiveData = (Button) findViewById(R.id.btnRetreiveData);
         btnSchedule = (Button) findViewById(R.id.btnSchedule);
@@ -91,8 +100,8 @@ public class ProfileActivity extends AppCompatActivity {
         int kodID = Integer.parseInt(kodEmployee.getText().toString());
         String name = fullName.getText().toString();
         int hours = Integer.parseInt(hoursEmployee.getText().toString());
-
-        Employee employee = new Employee(kodID,name,hours);
+        int weeksOff = Integer.parseInt(weeksOffEmployee.getText().toString());
+        Employee employee = new Employee(kodID,name,hours,weeksOff);
 
         //Use of .child() to avoid UID from firebase
         employeeDbRef.child(String.valueOf(employee.getKodID())).setValue(employee);

@@ -10,9 +10,9 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="164dp"
-        android:layout_marginLeft="164dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginStart="172dp"
+        android:layout_marginLeft="172dp"
+        android:layout_marginTop="28dp"
         android:text="Welcome"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
         android:layout_width="387dp"
         android:layout_height="78dp"
         android:ems="10"
-        android:hint="FullName"
+        android:hint="Full Name"
         app:layout_constraintBottom_toTopOf="@+id/signOut"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
@@ -48,19 +48,32 @@
         android:layout_width="394dp"
         android:layout_height="85dp"
         android:ems="10"
-        android:hint="HoursToWork"
+        android:hint="Weekly Worked Hours"
         app:layout_constraintBottom_toTopOf="@+id/signOut"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fullName"
-        app:layout_constraintVertical_bias="0.067" />
+        app:layout_constraintVertical_bias="0.057" />
+
+    <EditText
+        android:id="@+id/weeksOff"
+        android:layout_width="394dp"
+        android:layout_height="85dp"
+        android:ems="10"
+        android:hint="Number of desired week-off"
+        app:layout_constraintBottom_toTopOf="@+id/signOut"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fullName"
+        app:layout_constraintVertical_bias="0.379" />
 
 
     <Button
         android:id="@+id/signOut"
-        android:layout_width="123dp"
-        android:layout_height="64dp"
+        android:layout_width="152dp"
+        android:layout_height="67dp"
         android:layout_marginBottom="13dp"
         android:backgroundTint="#000000"
         android:text="logout"
@@ -69,66 +82,65 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.864"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.837"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnInsertData"
-        app:layout_constraintVertical_bias="0.975" />
+        app:layout_constraintVertical_bias="0.968" />
 
     <Button
         android:id="@+id/btnInsertData"
         android:layout_width="150dp"
         android:layout_height="61dp"
-        android:layout_marginTop="300dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginTop="408dp"
         android:text="Insert"
         app:backgroundTint="#0B0606"
-        app:layout_constraintBottom_toTopOf="@+id/btnRetreiveData"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.061"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.181" />
 
     <Button
         android:id="@+id/btnRetreiveData"
-        android:layout_width="143dp"
+        android:layout_width="147dp"
         android:layout_height="79dp"
         android:text="ShowData"
         app:backgroundTint="#171010"
-        app:layout_constraintBottom_toBottomOf="@+id/signOut"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnSchedule"
+        app:layout_constraintHorizontal_bias="0.263"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnInsertData" />
-
-    <Button
-        android:id="@+id/btnSchedule"
-        android:layout_width="150dp"
-        android:layout_height="61dp"
-        android:layout_marginBottom="20dp"
-        android:text="Schedule"
-        app:backgroundTint="#0B0606"
-        app:layout_constraintBottom_toTopOf="@+id/signOut"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.896"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/btnInsertData"
+        app:layout_constraintVertical_bias="0.288" />
 
     <Button
         android:id="@+id/btnViewSchedule"
         android:layout_width="150dp"
         android:layout_height="61dp"
-        android:layout_marginTop="300dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginTop="444dp"
+        android:layout_marginBottom="11dp"
         android:text="View Schedule"
         app:backgroundTint="#0B0606"
         app:layout_constraintBottom_toTopOf="@+id/btnSchedule"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.896"
+        app:layout_constraintHorizontal_bias="0.839"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.763" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/btnSchedule"
+        android:layout_width="150dp"
+        android:layout_height="61dp"
+        android:layout_marginBottom="96dp"
+        android:text="Schedule"
+        app:backgroundTint="#0B0606"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.839"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnViewSchedule"
+        app:layout_constraintVertical_bias="0.523" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
