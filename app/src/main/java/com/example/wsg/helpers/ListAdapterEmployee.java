@@ -35,14 +35,16 @@ public class ListAdapterEmployee extends ArrayAdapter {
         TextView tvEmployee = listItemView.findViewById(R.id.tvEmployee);
         TextView tvFullName = listItemView.findViewById(R.id.tvFullName);
         TextView tvhoursEmployee = listItemView.findViewById(R.id.tvhoursEmployee);
+        TextView tvWeeksOffEmployee = listItemView.findViewById(R.id.tvWeeksOff);
 
         Employee employee = employeeList.get(position);
 
         tvEmployee.setText(String.valueOf(employee.getKodID()));
         tvFullName.setText(employee.getName());
         tvhoursEmployee.setText(String.valueOf(employee.getHours()));
-
+        tvWeeksOffEmployee.setText(String.valueOf(employee.getWeeksOff()));
 
         return listItemView;
     }
 }
+

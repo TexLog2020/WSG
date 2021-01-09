@@ -26,6 +26,7 @@ public class ProfileActivity extends AppCompatActivity {
     private EditText kodEmployee;
     private EditText fullName;
     private EditText hoursEmployee;
+    private EditText weeksOffEmployee;
 
     private DatabaseReference employeeDbRef;
 
@@ -37,6 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
         kodEmployee  = (EditText) findViewById(R.id.kodEmployee);
         fullName  = (EditText) findViewById(R.id.fullName);
         hoursEmployee = (EditText) findViewById(R.id.hoursEmployee);
+        weeksOffEmployee = (EditText) findViewById(R.id.weeksOff);
         btnInsertData = (Button) findViewById(R.id.btnInsertData);
         btnRetreiveData = (Button) findViewById(R.id.btnRetreiveData);
         btnSchedule = (Button) findViewById(R.id.btnSchedule);
@@ -91,8 +93,8 @@ public class ProfileActivity extends AppCompatActivity {
         int kodID = Integer.parseInt(kodEmployee.getText().toString());
         String name = fullName.getText().toString();
         int hours = Integer.parseInt(hoursEmployee.getText().toString());
-
-        Employee employee = new Employee(kodID,name,hours);
+        int weeksOff = Integer.parseInt(weeksOffEmployee.getText().toString());
+        Employee employee = new Employee(kodID,name,hours,weeksOff);
 
         //Use of .child() to avoid UID from firebase
         employeeDbRef.child(String.valueOf(employee.getKodID())).setValue(employee);
