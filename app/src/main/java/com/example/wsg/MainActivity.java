@@ -17,6 +17,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+/**
+ * Η MainActivity ιαχειρίζεται τη βασική και πρώτη φόρμα που εμφανίζεται στο χρήστη
+ * κατά είσοδο του στο πρόγραμμα και ελέγχει τη διαδικασία της επιτυχημένης σύνδεσης του χρήστη
+ * στη βάση (authentication).
+ *
+ * Επίσης,ανακατεθύνει στην ανάκτηση κωδικού,στην εγγραφή χρήστη και κάνει
+ * έλεγχο εγκυρότητας για την ορθή είσοδο των στοιχείων σύνδεσης.
+ */
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

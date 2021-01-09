@@ -15,6 +15,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Είναι η φόρμα που διαχειρίζεται την εμφάνιση των βασικών
+ * κουμπιών λειτουργίας όπως την αποσύνδεση,την ανάκτηση δεδομένων υπαλλήλων από τη βάση,
+ * τη γεννήτρια προγράμματος κτλ.
+ *
+ * Επίσης,ολοκληρώνει την εισαγωγή δεδομένων στη βάση.
+ */
 
 public class ProfileActivity extends AppCompatActivity {
 

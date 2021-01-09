@@ -20,6 +20,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+/**
+ * Η κλάση RegisterUser ολοκληρώνει την εγγραφή του χρήστη και εισάγει τα στοιχεία του
+ * στη βάση δεδομένων,με ανάλογα μηνύματα επιτυχίας ή αποτυχίας.
+ *
+ * Επίσης,κάνει ελέγχους εγκυρότητας των στοιχείων που πληκτρολογεί ο χρήστης
+ * όπως για κενό όνομα,e-mail,ηλικία,για κωδικό πρόσβασης μικρότερο των 6 χαρακτήρων,για ορθή
+ * διεύθυνση e-mail κτλ.
+ */
 
 @SuppressWarnings("java:S110")
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener{
