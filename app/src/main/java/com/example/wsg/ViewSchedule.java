@@ -33,6 +33,9 @@ public class ViewSchedule extends AppCompatActivity {
     private static final int MAX_WEEKS = Schedule.NUMBER_OF_WEEKS + 1;
     private LinearLayout scheduleList;
 
+    /**
+     * Gets Data from the DB and visualizes the schedule in an easy to read list.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +108,11 @@ public class ViewSchedule extends AppCompatActivity {
         });
     }
 
+    /**
+     * Standard settings for the text views.
+     * @param textViewToBeAdded: Text view to be added in the screen.
+     * @param color: Color of text view.
+     */
     private void textViewConfigs(TextView textViewToBeAdded, int color) {
         textViewToBeAdded.setTextSize(24);
         textViewToBeAdded.setTextColor(color);
@@ -118,3 +126,4 @@ public class ViewSchedule extends AppCompatActivity {
         this.finish();
     }
 }
+

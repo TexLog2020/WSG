@@ -71,7 +71,7 @@ public class RetrieveDataActivity extends AppCompatActivity {
                 // Required for interface implementation
             }
         });
- /*
+         /*
           Με παρατεταμένο click η setOnItemLongClickListener εμφανίζει την φόρμα
           στην οποία κάνεις διαγραφή υπαλλήλου ή ενημέρωση των στοιχείων του.
          */
@@ -104,6 +104,7 @@ public class RetrieveDataActivity extends AppCompatActivity {
         final EditText tvUpdateEmployee = mDialogView.findViewById(R.id.tvUpdateEmployee);
         final EditText tvUpdatehoursEmployee = mDialogView.findViewById(R.id.tvUpdatehoursEmployee);
         final EditText tvUpdateFullName = mDialogView.findViewById(R.id.tvUpdateFullName);
+        final EditText tvUpdateWeeksOff = mDialogView.findViewById(R.id.updateWeeksOff);
         Button btnUpdate = mDialogView.findViewById(R.id.btnUpdate);
         Button btnDelete = mDialogView.findViewById(R.id.btnDelete);
 
@@ -116,11 +117,11 @@ public class RetrieveDataActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 int newkodID = Integer.parseInt(tvUpdateEmployee.getText().toString());
-                int newhours = Integer.parseInt(tvUpdateFullName.getText().toString());
-                String newName = tvUpdatehoursEmployee.getText().toString();
+                int newhours = Integer.parseInt(tvUpdatehoursEmployee.getText().toString());
+                String newName = tvUpdateFullName.getText().toString();
+                int weeksOff = Integer.parseInt(tvUpdateWeeksOff.getText().toString());
 
-
-                updateData(newkodID,newName,newhours);
+                updateData(newkodID,newName,newhours,weeksOff);
 
                 Toast.makeText(RetrieveDataActivity.this, "Record Updated", Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
@@ -171,11 +172,10 @@ public class RetrieveDataActivity extends AppCompatActivity {
      *
      * @param kodID Μεταβλητή η οποία είναι το αναγνωριστικό του κάθε υπαλλήλου.
      */
-
-    private void updateData(int kodID, String name, int hours){
+    private void updateData(int kodID, String name, int hours, int weeksOff){
 
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference(TABLE_EMPLOYEES).child(String.valueOf(kodID));
-        Employee employee = new Employee(kodID, name, hours);
+        Employee employee = new Employee(kodID, name, hours, weeksOff);
         dbRef.setValue(employee);
 
     }

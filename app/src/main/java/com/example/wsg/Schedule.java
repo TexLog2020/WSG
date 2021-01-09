@@ -1,6 +1,9 @@
 package com.example.wsg;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,7 +35,7 @@ import java.util.Map;
 @SuppressWarnings("java:S110")
 public class Schedule extends AppCompatActivity {
 
-    public static final int NUMBER_OF_WEEKS = 4;
+    public static int NUMBER_OF_WEEKS;
     private static final int PEOPLE_ON_MORNING_SHIFT = 2;
     private static final int PEOPLE_ON_AFTERNOON_SHIFT = 3;
     private static final int PEOPLE_ON_NIGHT_SHIFT = 1;
@@ -48,51 +51,78 @@ public class Schedule extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
+        Button scheduleButton = (Button) findViewById(R.id.scheduleButton);
+
         FirebaseDatabase db = FirebaseDatabase.getInstance();
 
-        Query cleanupQuery = db.getReference(TABLE_SCHEDULE).child("Weeks");
-        cleanupQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+        scheduleButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot week : dataSnapshot.getChildren()) {
-                        week.getRef().removeValue();
+            public void onClick(View v) {
+
+                EditText weeksToSchedule = (EditText) findViewById(R.id.weeksToSchedule);
+
+                if (StringUtils.isNotEmpty(weeksToSchedule.getText().toString())) {
+                    NUMBER_OF_WEEKS = Integer.parseInt(weeksToSchedule.getText().toString());
+                } else {
+                    NUMBER_OF_WEEKS = 0;
+                }
+
+                Query cleanupQuery = db.getReference(TABLE_SCHEDULE).child("Weeks");
+                cleanupQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            for (DataSnapshot week : dataSnapshot.getChildren()) {
+                                week.getRef().removeValue();
+                            }
+                        }
                     }
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Required from interface implementation.
-            }
-        });
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Required from interface implementation.
+                    }
+                });
 
-        Query query = db.getReference(TABLE_EMPLOYEES);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<Employee> workingEmployeeList = new ArrayList<>();
-                if (dataSnapshot.exists()) {
-                    getEmployeesFromDatabase(dataSnapshot, workingEmployeeList);
-                    scheduleAndInputToDb(workingEmployeeList);
-                }
-            }
+                Query query = db.getReference(TABLE_EMPLOYEES);
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        List<Employee> workingEmployeeList = new ArrayList<>();
+                        if (dataSnapshot.exists()) {
+                            getEmployeesFromDatabase(dataSnapshot, workingEmployeeList);
+                            scheduleAndInputToDb(workingEmployeeList);
+                        }
+                    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Required from interface implementation.
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Required from interface implementation.
+                    }
+                });
+
             }
         });
     }
 
-
+    /**
+     * Eisagei olous tous upallilous ths basis se lista.
+     *
+     * @param dataSnapshot : Snapshot from the data in the Database.
+     * @param workingEmployeeList: List to be filled with all available employees.
+     */
     private void getEmployeesFromDatabase(DataSnapshot dataSnapshot, @NonNull List<Employee> workingEmployeeList) {
         for (DataSnapshot entry : dataSnapshot.getChildren()) {
-            Employee employeePerson = new Employee(entry.getValue(Employee.class).getKodID(), entry.getValue(Employee.class).getName());
+            Employee employeePerson = new Employee(entry.getValue(Employee.class).getKodID(), entry.getValue(Employee.class).getName(), entry.getValue(Employee.class).getWeeksOff());
             workingEmployeeList.add(employeePerson);
         }
     }
 
+    /**
+     * Sorts a list of employees based on hours worked. Creates shifts, prioritizing the employees who worked the least. Calls function to input data into the DB and update employee hours.
+     *
+     * @param workingEmployeeList: List filled with all available employees.
+     */
     private void scheduleAndInputToDb(@NonNull List<Employee> workingEmployeeList) {
         Map<String, ScheduleHelper> scheduleMap = new HashMap<>();
 
@@ -112,7 +142,9 @@ public class Schedule extends AppCompatActivity {
 
                 while (employeeIterator.hasNext() && !allShiftsAreFull(scheduleMap)) {
                     Employee currentEmployee = employeeIterator.next();
-                    prepareShifts(scheduleMap, currentEmployee);
+                    if(currentWeekNumber != currentEmployee.getWeeksOff()) {
+                        prepareShifts(scheduleMap, currentEmployee);
+                    }
                 }
                 prepareAndInputData(currentWeekNumber, dayOfTheWeek, scheduleMap.get(MORNING_SHIFT).getShiftNames(), scheduleMap.get(AFTERNOON_SHIFT).getShiftNames(), scheduleMap.get(NIGHT_SHIFT).getShiftNames());
             }
@@ -120,6 +152,11 @@ public class Schedule extends AppCompatActivity {
         updateEmployeeHours(workingEmployeeList);
     }
 
+    /**
+     * Updates table TABLE_EMPLOYEES with the overall hours an employee is supposed to work on this schedule iteration.
+     *
+     * @param workingEmployeeList: List filled with all available employees.
+     */
     private void updateEmployeeHours(@NonNull List<Employee> workingEmployeeList) {
 
         for (Employee employee : workingEmployeeList) {
@@ -137,40 +174,74 @@ public class Schedule extends AppCompatActivity {
         }
     }
 
+    /**
+     * Inits the map which holds the shifts
+     *
+     * @param scheduleMap: The map to be initialized.
+     */
     private void initMap(Map<String, ScheduleHelper> scheduleMap) {
         scheduleMap.put(MORNING_SHIFT, new ScheduleHelper("", 0));
         scheduleMap.put(AFTERNOON_SHIFT, new ScheduleHelper("", 0));
         scheduleMap.put(NIGHT_SHIFT, new ScheduleHelper("", 0));
     }
 
+    /**
+     * Check for non-full shift.
+     *
+     * @param scheduleMap: Map that holds all shifts.
+     * @return true if all shifts are full, false if there is at least one shift that is not full.
+     */
     private boolean allShiftsAreFull(Map<String, ScheduleHelper> scheduleMap) {
         return scheduleMap.get(MORNING_SHIFT).isFull() && scheduleMap.get(AFTERNOON_SHIFT).isFull() && scheduleMap.get(NIGHT_SHIFT).isFull();
     }
 
+    /**
+     * Puts employee on a shift.
+     * @param scheduleMap: Map that holds all shifts.
+     * @param employee: Employee about to get put into a shift.
+     */
     private void prepareShifts(Map<String, ScheduleHelper> scheduleMap, Employee employee) {
         if (scheduleMap.get(MORNING_SHIFT).getShiftCounter() < PEOPLE_ON_MORNING_SHIFT) {
-            scheduleMap.get(MORNING_SHIFT).setShiftNames(StringUtils.join(scheduleMap.get(MORNING_SHIFT).getShiftNames(), ",", employee.getName()));
+            scheduleMap.get(MORNING_SHIFT).setShiftNames(StringUtils.join(scheduleMap.get(MORNING_SHIFT).getShiftNames(), ", ", employee.getName()));
             employee.setHours(employee.getHours() + 8);
             scheduleMap.get(MORNING_SHIFT).shiftCounterIncrease();
         } else if (scheduleMap.get(AFTERNOON_SHIFT).getShiftCounter() < PEOPLE_ON_AFTERNOON_SHIFT) {
-            scheduleMap.get(AFTERNOON_SHIFT).setShiftNames(StringUtils.join(scheduleMap.get(AFTERNOON_SHIFT).getShiftNames(), ",", employee.getName()));
+            scheduleMap.get(AFTERNOON_SHIFT).setShiftNames(StringUtils.join(scheduleMap.get(AFTERNOON_SHIFT).getShiftNames(), ", ", employee.getName()));
             employee.setHours(employee.getHours() + 8);
             scheduleMap.get(AFTERNOON_SHIFT).shiftCounterIncrease();
         } else if (scheduleMap.get(NIGHT_SHIFT).getShiftCounter() < PEOPLE_ON_NIGHT_SHIFT) {
-            scheduleMap.get(NIGHT_SHIFT).setShiftNames(StringUtils.join(scheduleMap.get(NIGHT_SHIFT).getShiftNames(), ",", employee.getName()));
+            scheduleMap.get(NIGHT_SHIFT).setShiftNames(StringUtils.join(scheduleMap.get(NIGHT_SHIFT).getShiftNames(), ", ", employee.getName()));
             employee.setHours(employee.getHours() + 8);
             scheduleMap.get(NIGHT_SHIFT).shiftCounterIncrease();
         }
     }
 
+    /**
+     * Data format and preparation for insert into database.
+     *
+     * @param currentWeekNumber: The week the iteration is in.
+     * @param dayNumber: The day in a numeric format.
+     * @param morningShiftNames: A string containing all names of employees in the morning shift.
+     * @param afternoonShiftNames: A string containing all names of employees in the afternoon shift.
+     * @param nightShiftNames: A string containing all names of employees in the night shift.
+     */
     private void prepareAndInputData(int currentWeekNumber, int dayNumber, String morningShiftNames, String afternoonShiftNames, String nightShiftNames) {
-        morningShiftNames = StringUtils.substring(morningShiftNames, 1);
-        afternoonShiftNames = StringUtils.substring(afternoonShiftNames, 1);
-        nightShiftNames = StringUtils.substring(nightShiftNames, 1);
+        morningShiftNames = StringUtils.substring(morningShiftNames, 2);
+        afternoonShiftNames = StringUtils.substring(afternoonShiftNames, 2);
+        nightShiftNames = StringUtils.substring(nightShiftNames, 2);
 
         inputWeekDataToDb(currentWeekNumber, dayNumber, morningShiftNames, afternoonShiftNames, nightShiftNames);
     }
 
+    /**
+     * Inputs data into the DB.
+     *
+     * @param currentWeekNumber: The week the iteration is in.
+     * @param currentDayAsNumber: The day in a numeric format.
+     * @param morningShiftNames: A string containing all names of employees in the morning shift.
+     * @param afternoonShiftNames: A string containing all names of employees in the afternoon shift.
+     * @param nightShiftNames: A string containing all names of employees in the night shift.
+     */
     private void inputWeekDataToDb(int currentWeekNumber, int currentDayAsNumber, String morningShiftNames, String afternoonShiftNames, String nightShiftNames) {
         DaySchedule currentDayMorning = new DaySchedule(morningShiftNames);
         DaySchedule currentDayAfternoon = new DaySchedule(afternoonShiftNames);
@@ -184,3 +255,4 @@ public class Schedule extends AppCompatActivity {
                 DaysOfTheWeek.getDay(currentDayAsNumber), "/shift3")).setValue(currentDayNight);
     }
 }
+
