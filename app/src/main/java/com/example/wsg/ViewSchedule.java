@@ -34,7 +34,7 @@ public class ViewSchedule extends AppCompatActivity {
     private LinearLayout scheduleList;
 
     /**
-     * Λαμβάνει δεδομένα από την βάση και τα απεικονίζει το πρόγραμμα εργασίας
+     * Λαμβάνει δεδομένα από την βάση και  απεικονίζει το πρόγραμμα εργασίας
      * σε μια λίστα εύκολη ανάγνωσης
      */
     @Override

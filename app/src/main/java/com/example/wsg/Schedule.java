@@ -66,7 +66,7 @@ public class Schedule extends AppCompatActivity {
                 } else {
                     NUMBER_OF_WEEKS = 0;
                 }
-
+               //Διαγραφή υπαρχόντων προγραμμάτων εργασίας
                 Query cleanupQuery = db.getReference(TABLE_SCHEDULE).child("Weeks");
                 cleanupQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
